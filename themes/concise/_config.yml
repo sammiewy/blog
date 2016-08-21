@@ -1,0 +1,27 @@
+menu:
+  首页: /
+  归档: /archives
+  github地址: https://github.com/sammiewy
+
+widgets:
+- search
+- recent_posts
+- category
+- tagcloud
+
+excerpt_link: Read More ›
+
+twitter:
+  username:
+  show_replies: false
+  tweet_count: 5
+
+addthis:
+  enable: true
+  pubid:
+  facebook: true
+  twitter: true
+  google: true
+  pinterest: true
+
+google_analytics:

@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>reactJS中问题整理 › sammiewy</title>
+  <meta name="author" content="sammie">
+  
+  <meta name="description" content="Q: reactjs为什么要设计成单向数据流？A：”在React中，数据流向是单向的——从父节点传递到子节点，因而组件是简单且易于把握的，他们只需从父节点获取props渲染即可。如果顶层组件的某个prop改变了，React会递归地向下遍历整棵组建树，重新渲染所有使用这个属性的组件。”
+个人觉得这个解">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="reactJS中问题整理"/>
+  <meta property="og:site_name" content="sammiewy"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="sammiewy" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header"><div class="meta inner">
+  <h1><a href="/">sammiewy</a></h1>
+  <h2><a href="/">学习笔记</a></h2>
+  <nav id="main-nav">
+    <ul>
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/archives">归档</a></li>
+      
+      <li><a href="https://github.com/sammiewy">github地址</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+</div>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div class="post-content">
+    <header>
+      
+  
+    <h1 class="title">reactJS中问题整理</h1>
+  
+
+      
+        <time datetime="2016-06-21T12:13:59.000Z">2016-06-21</time>
+      
+    </header>
+    <div class="entry">
+      
+        <h5 id="Q-reactjs为什么要设计成单向数据流？"><a href="#Q-reactjs为什么要设计成单向数据流？" class="headerlink" title="Q: reactjs为什么要设计成单向数据流？"></a>Q: reactjs为什么要设计成单向数据流？</h5><p><strong>A</strong>：”在React中，数据流向是单向的——从父节点传递到子节点，因而组件是简单且易于把握的，他们只需从父节点获取props渲染即可。如果顶层组件的某个prop改变了，React会递归地向下遍历整棵组建树，重新渲染所有使用这个属性的组件。”</p>
+<p>个人觉得这个解释不是很全面，搜到一个相关文章<a href="http://karynsong.github.io/2016-02/38/" target="_blank" rel="external">React 单向数据流分析</a>，但是讲得也不是很清楚， 我觉得可以看完Redux再回过来总结这个问题。</p>
+<h5 id="Q-外部传入的props与getDefaultProps的关系，是谁覆盖谁？"><a href="#Q-外部传入的props与getDefaultProps的关系，是谁覆盖谁？" class="headerlink" title="Q. 外部传入的props与getDefaultProps的关系，是谁覆盖谁？"></a>Q. 外部传入的props与getDefaultProps的关系，是谁覆盖谁？</h5><p><strong>A:</strong> 外部传入的props与getDefaultProps的关系是外部传入的props属性覆盖getDefaultProps。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var Hello = React.createClass(&#123;</div><div class="line">  render: function() &#123;</div><div class="line">    return &lt;ChildNode name=&quot;parentNode&quot; /&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">var ChildNode = React.createClass(&#123;</div><div class="line"> getDefaultProps: function() &#123;</div><div class="line">  	return &#123;name: &apos;childNode&apos;&#125;;</div><div class="line">  &#125;,</div><div class="line">  render: function() &#123;</div><div class="line">    return &lt;div&gt;Hello &#123;this.props.name&#125;&lt;/div&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">  &lt;Hello /&gt;,</div><div class="line">  document.getElementById(&apos;container&apos;)</div><div class="line">);</div><div class="line"></div><div class="line"></div><div class="line">//输出</div><div class="line">Hello parentNode</div></pre></td></tr></table></figure>
+<h5 id="Q-生命周期的componentDidMount时期是否已经插入了DOM？"><a href="#Q-生命周期的componentDidMount时期是否已经插入了DOM？" class="headerlink" title="Q. 生命周期的componentDidMount时期是否已经插入了DOM？"></a>Q. 生命周期的componentDidMount时期是否已经插入了DOM？</h5><p><strong>A:</strong> componentDidMount时期已经插入了DOM，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">var Hello = React.createClass(&#123;</div><div class="line">  render: function() &#123;</div><div class="line">    return &lt;ChildNode name=&quot;parentNode&quot; /&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">var ChildNode = React.createClass(&#123;</div><div class="line">	getDefaultProps: function() &#123;</div><div class="line">  	console.log(123);</div><div class="line">  	return &#123;name: &apos;childNode&apos;&#125;;</div><div class="line">  &#125;,</div><div class="line">  componentDidMount: function() &#123;</div><div class="line">  	var childNode = document.getElementById(&apos;childId&apos;);</div><div class="line">    console.log(childNode);</div><div class="line">  &#125;,</div><div class="line">  render: function() &#123;</div><div class="line">    return &lt;div id=&quot;childId&quot;&gt;Hello &#123;this.props.name&#125;&lt;/div&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">  &lt;Hello /&gt;,</div><div class="line">  document.getElementById(&apos;container&apos;)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>控制台输出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;div data-reactroot=&quot;&quot; id=&quot;childId&quot;&gt;</div><div class="line">&lt;!-- react-text: 2 --&gt;</div><div class="line">Hello </div><div class="line">&lt;!-- /react-text --&gt;</div><div class="line">&lt;!-- react-text: 3 --&gt;</div><div class="line">parentNode</div><div class="line">&lt;!-- /react-text --&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h5 id="4-componentWillReceiveProps的作用，-会继续执行render吗？"><a href="#4-componentWillReceiveProps的作用，-会继续执行render吗？" class="headerlink" title="4. componentWillReceiveProps的作用， 会继续执行render吗？"></a>4. componentWillReceiveProps的作用， 会继续执行render吗？</h5><p><strong>A:</strong>   在组件接收到新的 props 的时候调用。在初始化渲染的时候，该方法不会调用。<br>用此函数可以作为 react 在 prop 传入之后， render() 渲染之前更新 state 的机会。老的 props 可以通过 this.props 获取到。在该函数中调用 this.setState() 将不会引起第二次渲染。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">var Hello = React.createClass(&#123;</div><div class="line">    getInitialState: function () &#123;</div><div class="line">        return &#123;name: &apos;parentNode&apos;&#125;;</div><div class="line">    &#125;,</div><div class="line">    clickBtn: function () &#123;</div><div class="line">        this.setState(&#123;name: &apos;change ParentNode!&apos;&#125;);</div><div class="line">    &#125;,</div><div class="line">    render: function () &#123;</div><div class="line">        return &lt;div className=&#123;this.state.name&#125;&gt;</div><div class="line">            &lt;ChildNode name=&quot;parentNode&quot;/&gt;;</div><div class="line">            &lt;button onClick=&#123;this.clickBtn&#125;&gt;点击&lt;/button&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">var ChildNode = React.createClass(&#123;</div><div class="line">    getDefaultProps: function () &#123;</div><div class="line">        return &#123;name: &apos;childNode&apos;&#125;;</div><div class="line">    &#125;,</div><div class="line">    getInitialState: function () &#123;</div><div class="line">        return &#123;message: &apos;welcome!&apos;&#125;;</div><div class="line">    &#125;,</div><div class="line">    componentDidMount: function () &#123;</div><div class="line">        var childNode = document.getElementById(&apos;childId&apos;);</div><div class="line">    &#125;,</div><div class="line">    componentWillReceiveProps: function (nextProps) &#123;</div><div class="line">        console.log(&apos;componentWillReceiveProps---&apos;+nextProps.name);</div><div class="line">        console.log(&apos;componentWillReceiveProps---&apos;+ this.props.name);</div><div class="line">        console.log(&apos;componentWillReceiveProps---&apos;+this.state.message);</div><div class="line">        this.setState(&#123;message: &apos;change Welcome&apos;&#125;);</div><div class="line"></div><div class="line">    &#125;,</div><div class="line">    render: function () &#123;</div><div class="line">        console.log(&apos;render---&apos; + this.state.message);</div><div class="line">        return &lt;div id=&quot;childId&quot;&gt;Hello &#123;this.props.name&#125; &#123;this.state.message&#125;&lt;/div&gt;;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">    &lt;Hello /&gt;,</div><div class="line">    document.getElementById(&apos;container&apos;)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>初始运行时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">页面输出：</div><div class="line">Hello parentNode welcome!</div><div class="line"></div><div class="line">制台输出:</div><div class="line">render---welcome!</div></pre></td></tr></table></figure>
+<p>点击btn的是时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">页面值：</div><div class="line">Hello parentNode change Welcome</div><div class="line"></div><div class="line">控制台输出:</div><div class="line">componentWillReceiveProps---parentNode</div><div class="line">componentWillReceiveProps---parentNode</div><div class="line">componentWillReceiveProps---welcome!</div><div class="line">render---change Welcome</div></pre></td></tr></table></figure>
+<p><strong>官网总结：</strong></p>
+<p>当节点初次被放入的时候 componentWillReceiveProps 并不会被触发。这是故意这么设计的？</p>
+<p>原因是因为 componentWillReceiveProps 经常会处理一些和 old props 比较的逻辑，而且会在变化之前执行；不在组件即将渲染的时候触发，这也是这个方法设计的初衷。</p>
+<h5 id="5-immutableJS是如何解决shouldComponentUpdate中复杂对象的比较的？"><a href="#5-immutableJS是如何解决shouldComponentUpdate中复杂对象的比较的？" class="headerlink" title="5. immutableJS是如何解决shouldComponentUpdate中复杂对象的比较的？"></a>5. immutableJS是如何解决shouldComponentUpdate中复杂对象的比较的？</h5><p><strong>A:</strong><br>在shouldComponentUpdate分别判断props和state有没有变化。</p>
+<p>shouldComponentUpdate中使用immutableJS代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">import &#123; is &#125; from &apos;immutable&apos;;</div><div class="line"></div><div class="line">shouldComponentUpdate: (nextProps = &#123;&#125;, nextState = &#123;&#125;) =&gt; &#123;</div><div class="line">  const thisProps = this.props || &#123;&#125;, thisState = this.state || &#123;&#125;;</div><div class="line"></div><div class="line">  if (Object.keys(thisProps).length !== Object.keys(nextProps).length ||</div><div class="line">      Object.keys(thisState).length !== Object.keys(nextState).length) &#123;</div><div class="line">    return true;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  for (const key in nextProps) &#123;</div><div class="line">    if (thisProps[key] !== nextProps[key] || is(thisProps[key], nextProps[key])) &#123;</div><div class="line">      return true;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  for (const key in nextState) &#123;</div><div class="line">    if (thisState[key] !== nextState[key] || is(thisState[key], nextState[key])) &#123;</div><div class="line">      return true;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>is方法是先比较两个对象是不是同一个地址， 再比较两个对象的valueOf，即两个对象的值上否相同。<br>immutableJS中is实现代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">export function is(valueA, valueB) &#123;</div><div class="line">  if (valueA === valueB || (valueA !== valueA &amp;&amp; valueB !== valueB)) &#123;</div><div class="line">    return true;</div><div class="line">  &#125;</div><div class="line">  if (!valueA || !valueB) &#123;</div><div class="line">    return false;</div><div class="line">  &#125;</div><div class="line">  if (typeof valueA.valueOf === &apos;function&apos; &amp;&amp;</div><div class="line">      typeof valueB.valueOf === &apos;function&apos;) &#123;</div><div class="line">    valueA = valueA.valueOf();</div><div class="line">    valueB = valueB.valueOf();</div><div class="line">    if (valueA === valueB || (valueA !== valueA &amp;&amp; valueB !== valueB)) &#123;</div><div class="line">      return true;</div><div class="line">    &#125;</div><div class="line">    if (!valueA || !valueB) &#123;</div><div class="line">      return false;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  if (typeof valueA.equals === &apos;function&apos; &amp;&amp;</div><div class="line">      typeof valueB.equals === &apos;function&apos; &amp;&amp;</div><div class="line">      valueA.equals(valueB)) &#123;</div><div class="line">    return true;</div><div class="line">  &#125;</div><div class="line">  return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+      
+      <footer>
+        
+  
+  <div class="categories">
+    <a href="/categories/React/">React</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/ReactJS/">ReactJS</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+      </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:sammiewy.github.io/blog">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2016/06/30/generator/">ES6中的Generator函数</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/21/react-question/">reactJS中问题整理</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/09/createblog/">Hexo + github 搭建自己的博客</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/ES6/">ES6</a><small>1</small></li>
+  
+    <li><a href="/categories/React/">React</a><small>1</small></li>
+  
+    <li><a href="/categories/技术/">技术</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/ReactJS/" style="font-size: 10px;">ReactJS</a> <a href="/tags/技术/" style="font-size: 10px;">技术</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 sammie
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+</body>
+</html>
+
