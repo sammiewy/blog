@@ -3,16 +3,28 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
+<<<<<<< HEAD
 title: sammiewy
 subtitle: 学习笔记
 description:
 author: sammie
 language: zh-CN
+=======
+title: Hexo
+subtitle:
+description:
+author: John Doe
+language:
+>>>>>>> eee
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+<<<<<<< HEAD
 url: http://sammiewy.github.io/blog/
+=======
+url: http://yoursite.com
+>>>>>>> eee
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -63,9 +75,17 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
+<<<<<<< HEAD
 theme: concise
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy: https://github.com/sammiewy/blog.git
+=======
+theme: landscape
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+>>>>>>> eee
   type:
