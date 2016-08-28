@@ -1,6 +1,6 @@
 menu:
-  首页: /
-  归档: /archives
+  首页: /blog
+  归档: /blog/archives
   github地址: https://github.com/sammiewy
 
 widgets:
