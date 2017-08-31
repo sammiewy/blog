@@ -68,4 +68,7 @@ theme: concise
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: https://github.com/sammiewy/blog.git
+  branch: gh-pages
+
