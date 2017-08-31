@@ -3,6 +3,10 @@ title: Hexo + github 搭建自己的博客
 date: 2016-04-09 23:11:09
 tags: 技术
 categories: 技术
+page: 'qwe'
+description: 技术
+layout: single-column
+toc: true
 ---
 ## 1. 配置环境
  安装node，在[node官网](http://nodejs.cn/)上下载node，进行安装
