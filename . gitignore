@@ -1,5 +1,3 @@
-/themes/concise
+
 /node_modules
-/.deploy_git
 /public  
-/_config.yml
