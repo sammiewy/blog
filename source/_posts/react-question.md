@@ -3,7 +3,7 @@ title: reactJS中问题整理
 date: 2016-06-21 20:13:59
 tags: ReactJS
 categories: React
-layout: page 
+layout: timeline
 ---
 
 ##### Q: reactjs为什么要设计成单向数据流？

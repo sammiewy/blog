@@ -5,7 +5,7 @@ tags: 技术
 categories: 技术
 page: 'qwe'
 description: 技术
-layout: single-column
+layout: page
 toc: true
 ---
 ## 1. 配置环境
