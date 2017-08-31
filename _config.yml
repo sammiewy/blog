@@ -70,5 +70,5 @@ theme: concise
 deploy:
   type: git
   repo: https://github.com/sammiewy/blog.git
-  branch: gh-pages
+  branch: master
 
