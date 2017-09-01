@@ -29,11 +29,19 @@ npm install
 hexo server
 ```
 ## 3. 部署到github上
-生成静态资源
-```bash
-hexo generate
+配置_config.yml
 ```
-生成的静态资源在public目录下，把public的全部资源拷贝出来，push到gh-pages分支上
+deploy:
+  type: git
+  repo: https://github.com/sammiewy/blog.git
+  branch: gh-pages
+```
+部署到服务器上
+```bash
+hexo clean
+hexo generate
+hexo deploy
+```
 
 ## 4. 参考资料：
 1.[hexo官网](https://hexo.io/zh-cn/docs/)

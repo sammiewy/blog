@@ -3,7 +3,7 @@ title: ES6中的Generator函数
 date: 2016-06-30 20:10:10
 tags: ES6
 categories: ES6
-layout: timeline
+layout: page
 ---
 
 #### 一、ES6简介
