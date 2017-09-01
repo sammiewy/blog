@@ -3,6 +3,7 @@ title: Markdown语法简介
 date: 2016-08-28 14:27:51
 tags:  markdown
 categories: 工具
+layout: page
 ---
 
 ### markdown语法简介
